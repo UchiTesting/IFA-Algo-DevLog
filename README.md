@@ -6,6 +6,6 @@ Cours Algo II : Cycle developpement logiciel IFA - Metz
 
 *.algo	Fichiers texte contenant les pseudo-codes d'algorithmie
 
-Exos.md Contient le cours.
+Exos.md Contient les exercices.
 
 
