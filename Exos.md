@@ -63,7 +63,7 @@ Fin
 
 ---
 
-## Écrire un algorithme qui affiche un mot illimité. La caractère '.' termine la saisie.
+## Écrire un algorithme qui affiche un mot illimité. Le caractère '.' termine la saisie.
 
 ```
 Debut Mot
@@ -120,8 +120,8 @@ Fin
 
 ---
 ## Écrire un algorithme qui demande n. Afficher ensuite la somme des n premiers entiers.
-U₀ = 0
-Uₙ = N + Uₙ-₁ pour n > 0
+- U(0) = 0
+- U(n) = n + U(n-1) pour n > 0
 
 
 ```
@@ -141,7 +141,12 @@ Fin
 ```
 
 ---
-## Écrire la factorielle n! → n > 1 n * (n-1) n = 0 → 1
+## Écrire la factorielle n!
+- n > 1
+- 0! → 1
+     - U(n) = n * U(n-1)
+     - Factorielle de 0 renvoi 1
+- n * (n-1) 
 
 ```
 Debut Factorielle
