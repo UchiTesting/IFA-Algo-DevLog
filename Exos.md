@@ -1,5 +1,6 @@
 ---
 marp: false
+_class: invert
 ---
 
 Algo II : Cycle developpement logiciel IFA - Metz

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>168</x>
+      <y>315</y>
+      <w>525</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>Voiture
+--
+couleur: chaineCaractere
+marque: chaineCaractere
+puissance: entier
+vitesseMax: entier
+prix: reel
+--
+Voiture(couleur: chaineCaractere, marque: chaineCaractere, puissance: entier, vitesseMax: entier, prix: reel): Voiture</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>301</x>
+      <y>133</y>
+      <w>238</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>Panier
+--
+tabItems: tableau[]: Item
+index: entier
+total: reel
+--
+Panier(): Panier
+ajouterItem(voiture:Voiture, quantite: entier): NULL
+ajouteItem(): NULL
+supprimerItem(idx: entier): NULL
+afficherTotal(): NULL
+calculerTotal(): reel
+afficherListeVoiture(): NULL</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>616</x>
+      <y>147</y>
+      <w>77</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Item
+--
+v: Voiture
+quantite: entier
+--
+Item():Item</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>532</x>
+      <y>147</y>
+      <w>98</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2= 0..*</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>637</x>
+      <y>196</y>
+      <w>28</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
+  </element>
+</diagram>
