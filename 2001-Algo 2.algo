@@ -1095,3 +1095,66 @@ Classe Vecteur2D
 		this.y = y
 	FinFonction		
 FinClasse
+
+[100120]
+
+## Transtypage
+
+var v1: Type1
+var v2: Type2
+	
+v1 = (Type1)v2
+
+## Héritage
+
+Debut
+	var p: Pere
+	var m: Mere
+	var f: Fille
+
+	Classe Pere
+		public att4: chaineCaractere
+	FinClasse
+
+	Classe Mere
+		public var att1: entier
+		public var att2: reel
+	FinClasse
+
+	Classe Fille herite Mere
+		public att3: char
+	FinClasse
+
+	var t: tableau[10]: Mere
+	var c: char
+Debut // Code  incohérent n'aya,t pour but que de montrer les possibilités du langage.
+	p = nouveau Pere()
+	m = nouveau Mere()
+	m = nouveau Fille() // OK
+	f = nouveau Fille()
+
+	m = f // OK → M = (Mere)Fille
+	f = m // NOK
+	m = p // NOK
+	
+	// On peut mettre des éléments Fille dans des éléments Mère
+	Pour i allant de 0 à 9 par pas de 1 Faire
+		c = saisirChar()
+		
+		Si c == "M" Alors
+			t[i] = nouveau Mere()
+		Sinon
+			t[i] = nouveau Fille()
+		FinSi
+		
+		total = total + t[i].att1
+	FinPour
+	
+	t[4] = nouveau Fille()
+	// t à des éléments de type Mere.
+	// t[4] est de type Fille.
+	// Il faut pourtant caster en Fille pour mettre t[4] dans une variable de type Fille
+	f = (Fille)t[4]
+Fin
+
+[140120]
