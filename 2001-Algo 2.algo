@@ -1127,7 +1127,7 @@ Debut
 
 	var t: tableau[10]: Mere
 	var c: char
-Debut // Code  incohérent n'aya,t pour but que de montrer les possibilités du langage.
+Debut // Code  incohérent n'ayant pour but que de montrer les possibilités du langage.
 	p = nouveau Pere()
 	m = nouveau Mere()
 	m = nouveau Fille() // OK
@@ -1157,4 +1157,125 @@ Debut // Code  incohérent n'aya,t pour but que de montrer les possibilités du 
 	f = (Fille)t[4]
 Fin
 
-[140120]
+## Exo 9
+Un concessionaire vend des voitures, des bateaux et des camions.
+Ils ont pour attributs communs:
+- Leur marque
+- Leur couleur
+- Leur prix
+
+Ils sont distingués par:
+- Les voitures → nombres de routes.
+- Les camions → poids de leur remorque.
+- Les bateaux → nombre de voiles.
+
+Debut Exo 9
+	Classe Vehicule
+		private var marque: chaineCaractere
+		private var couleur: chaineCaractere
+		private var prix: reel
+		
+		public Fonction Vehicule(var marque: chaineCaractere, var couleur: chaineCaractere, var prix: reel): Vehicule
+			this.marque = marque
+			this.couleur = couleur
+			this.prix = prix
+		FinFonction
+		
+		public Fonction toString()
+			afficherChaine("marque: "+marque+", couleur: "+couleur+", prix: "+prix)
+		FinFonction
+		
+		public Fonction getMarque(): chaineCaractere
+			retourne marque
+		FinFonction
+		
+		public Fonction getCouleur(): chaineCaractere
+			retourne couleur
+		FinFonction
+		
+		public Fonction getPrix(): reel
+			retourne prix
+		FinFonction
+	FinClasse
+
+	Classe Voiture herite Vehicule
+		private var nbRoues: entier
+		
+		public Fonction Voiture(var marque: chaineCaractere, var couleur: chaineCaractere, var prix: reel, nbRoues: entier): Voiture
+			base(marque, couleur, prix)
+			this.nbRoues = nbRoues
+		FinFonction
+		
+		public Fonction getNbRoues(): entier
+			retourne nbRoues
+		FinFonction
+		
+		public Fonction toString(): chaineCaractere
+			afficherChaine("Voiture > "+base.toString()+", nbRoues: "+nbRoues)
+		FinFonction
+	FinClasse
+
+	Classe Camion herite Vehicule
+		private var poidsRemorque: reel
+		
+		public Fonction Camion(var marque: chaineCaractere, var couleur: chaineCaractere, var prix: reel, var poidsRemorque: reel): Camion
+			base(marque, couleur, prix)
+			this.poidsRemorque = poidsRemorque
+		FinFonction
+		
+		public Fonction getPoidsRemorque(): reel
+			retourne poidsRemorque
+		FinFonction
+		
+		public Fonction toString(): chaineCaractere
+			afficherChaine("Camion > "+base.toString()+", poidsRemorque: "+poidsRemorque)
+		FinFonction
+	FinClasse
+
+	Classe Bateau herite Vehicule
+		private var nbVoiles: entier
+		
+		public Fonction Bateau(var marque: chaineCaractere, var couleur: chaineCaractere, var prix: reel, nbVoiles: entier): Bateau
+			base(marque, couleur, prix)
+			this.nbVoiles = nbVoiles
+		FinFonction
+		
+		public Fonction getNbVoiles(): entier
+			retourne nbVoiles
+		FinFonction
+		public Fonction toString(): chaineCaractere
+			afficherChaine("Bateau > "+base.toString()+", nbVoiles: "+nbVoiles)
+		FinFonction
+	FinClasse
+	
+	public var choix: char
+	public var taille: entier
+	public var total: reel
+	public t: tableau[]: Vehicule
+Debut
+	taille = 0
+	total = 0
+	
+	Faire
+		choix = saisieChar()
+		
+		taille = taille + 1
+		
+		SelonQue choix
+			Cas 'v'
+				t[i] = nouveau Voiture(saisirChaine(), saisirChaine(), saisirReel(), saisirEntier())
+			FinCas
+			Cas 'c'
+				t[i] = nouveau Camion(saisirChaine(), saisirChaine(), saisirReel(), saisirReel())
+			FinCas
+			Cas 'b'
+				t[i] = nouveau Bateau(saisirChaine(), saisirChaine(), saisirReel(), saisirEntier())
+			FinCas
+		FinSelonQue
+		
+		total = total + t[i].getPrix()
+	TantQue choix != 'q'
+	FinFaire
+	
+	afficherEntier(total)
+Fin
