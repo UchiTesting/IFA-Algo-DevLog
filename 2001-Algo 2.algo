@@ -1350,3 +1350,8 @@ Debut
 		degats[i].attaquer()
 	FinPour
 Fin
+
+## Exo 10
+
+Une voiture et une entreprise polluent. De ce fait, elles subissent une taxe mensuelle.
+Écrire un programme qui simule 1 an de taxation sur 3 entreprises et 4 voitures.
