@@ -1279,3 +1279,74 @@ Debut
 	
 	afficherEntier(total)
 Fin
+
+[140120]
+
+## Classes Abstraites
+
+Une classe abstraite peut avoir des méthode classiques.
+Une méthode abstraite implique une classe abstraite.
+
+abstraite Classe Perso
+	public nom: chaineCaractere
+	public pv: entier
+	
+	public Fonction Perso() // Même si elle n'est pas instanciable, il faut un constructeur à une classe abstraite.
+	FinFonction
+	
+	public abstraite Fonction deplacer(): NULL // Corps de fonction vide
+	FinFonction
+FinClasse
+
+Classe PNJ herite Perso
+	public Fonction deplacer(): NULL // Fonction redéfinie sans mot-clé abstraite
+		afficherChaine("Avancer d'une case")
+	FinFonction
+FinClasse
+
+var p: Perso // OK
+p = nouveau Perso() // NOK
+p = nouveau PNJ() // OK
+
+
+## Interfaces
+
+Debut
+	// Implémente les autres classes vues plus haut.
+	...
+
+	Interface Violent
+		public abstraite Fonction attaquer(): NULL
+		FinFonction
+	FinInterface
+
+	Classe Arme implemente Violent
+		public var pdg: entier
+		...
+		
+		public Fonction attaquer(): NULL
+			afficherChaine("Retire 150 PV.")
+		FinFonction
+	FinClasse
+
+	Classe Heros herite Perso implemente Violent
+		public Fonction Heros(var nom: chaineCaractere, var pv: entier): Heros
+			base(nom, pv)
+		FinFonction
+		
+		private deplacerFille(): NULL
+			afficherChaine("Saut")
+		FinFonction
+
+		public Fonction attaquer(): NULL
+			afficherChaine("Retire 10 PV.")
+		FinFonction	
+	FinClasse
+
+	var degats: tableau[10]: Violent
+
+Debut
+	Pour i allant de 0 à 9 par pas de 1 Faire
+		degats[i].attaquer()
+	FinPour
+Fin
