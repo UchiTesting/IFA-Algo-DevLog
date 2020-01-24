@@ -1355,3 +1355,149 @@ Fin
 
 Une voiture et une entreprise polluent. De ce fait, elles subissent une taxe mensuelle.
 Écrire un programme qui simule 1 an de taxation sur 3 entreprises et 4 voitures.
+
+Debut Exo 10
+	abstraite Classe Personne
+		public var nom: chaineCaractere
+		public var prenom: chaineCaractere
+		public var dateDeNaissance: chaineCaractere
+		public var adresse: chaineCaractere
+		
+		public Fonction Personne(var nom: chaineCaractere, var prenom: chaineCaractere, var dateDeNaissance: chaineCaractere, var adresse: chaineCaractere): Personne
+			this.nom = nom
+			this.prenom = prenom
+			this.dateDeNaissance = dateDeNaissance
+			this.adresse = adresse;
+		FinFonction
+		
+		public Fonction Personne(): Personne
+			Personne("Fleck", "Arthur", "1 janvier 1970", "Gotham City")
+		FinFonction
+		
+		public Fonction toString(): chaineCaractere
+			retourne "nom: "+nom+", prenom: "+prenom+", DdN: "+dateDeNaissance+", Adr: "+ adresse
+		FinFonction
+	FinClasse
+
+	Classe PersAdmin herite Personne
+		public var numSecu: chaineCaractere
+		
+		public PersAdmin(var nom: chaineCaractere, var prenom: chaineCaractere, var dateDeNaissance: chaineCaractere, var lieuDeNaissance: chaineCaractere, var numSecu: chaineCaractere): PersAdmin
+			base(nom, prenom, dateDeNaissance, lieuDeNaissance)
+			this.numSecu = numSecu
+		FinFonction
+		
+		public Fonction getLieuDeNaissance(): chaineCaractere
+			retourne adresse
+		FinFonction
+		
+		public Fonction setLieuDeNaissance(var lieuDeNaissance: chaineCaractere): NULL
+			adresse = lieuDeNaissance
+		FinFonction
+	FinClasse
+
+	Classe PersMorale herite Personne implemente IPolluant
+		private var numSiret: chaineCaractere
+		private var respLegal: PersAdmin
+		private var coeffPollution: entier
+		
+		public Fonction PersMorale( var numSiret: chaineCaractere, var respLegal: PersAdmin, var coeffPollution: entier, var nom: chaineCaractere, var prenom: chaineCaractere, var dateCreation: chaineCaractere, var lieuCreation: chaineCaractere): PersMorale
+			base(nom, prenom, dateCreation, lieuCreation)
+			this.numSiret = numSiret
+			this.respLegal = respLegal
+			this.coeffPollution = coeffPollution
+		FinFonction
+		
+		public Fonction calculPollution(var nbJours: entier): reel
+			retourne coeffPollution * nbJours + 5
+		FinFonction
+		
+		public Fonction payerPollution(var quantitePollution: reel, var tauxPollution: reel): reel
+			var taxe: reel
+		Debut
+			taxe = quantitePollution*tauxPollution
+			afficherChaine(respLegal + "payes "+ taxe)
+			retourne taxe
+		FinFonction
+	FinClasse
+
+	Classe Voiture implemente IPolluant
+		public var marque: chaineCaractere
+		public var proprio: PersAdmin
+		public var puissance: entier
+		
+		public Fonction Voiture(var marque: chaineCaractere, var proprio: PersAdmin, var puissance: entier): Voiture
+			this.marque = marque
+			this.proprio = proprio
+			this.puissance = puissance
+		FinFonction
+		
+		public Fonction calculPollution(var nbJours: entier): reel
+			retourne puissance * nbJours * 0.3
+		FinFonction
+		
+		public Fonction payerPollution(var quantitePollution, var tauxPollution): reel
+			var taxe: reel
+		Debut
+			taxe = quantitePollution * tauxPollution
+			afficherChaine(proprio + " payes " + taxe)
+			retourne taxe
+		FinFonction
+	FinClasse
+
+	Interface IPolluant
+		abstraite Fonction calculPollution():reel
+		abstraite Fonction payerPollution(var quantitePollution: reel, var tauxPollution: reel): reel
+	FinInterface
+	
+	var taille: entier
+	var tab: tableau[]: de IPolluant
+	var choix: char
+	
+	Fonction creerPersonneAdmin():PersAdmin
+		retourne nouveau PersAdmin(saisirChaine(), saisirChaine(), saisirChaine(), saisirChaine(), saisirChaine())
+	FinFonction
+	
+	Fonction creerEntreprise():Entreprise
+		retourne nouveau PersMorale(saisirChaine(), creerPersonneAdmin(), saisirEntier(), saisirChaine(), saisirChaine(), saisirChaine(), saisirChaine())
+	FinFonction
+	
+	Fonction creerVoiture():Voiture
+		retourne nouveau Voiture(saisirChaine(), creerPersonneAdmin(), saisirEntier())
+	FinFonction
+	
+	Fonction modifTab(ref taille: entier, ref tab: tableau[]: IPolluant, var polluant: IPolluant): NULL
+		Si polluant != NULL Alors
+			taille = taille + 1
+			redim(tab, taille)
+			tab[taille-1] = polluant
+		FinSi
+	FinFonction
+	
+	Fonction simulation(var tab: tableau[]: IPolluant, var taille: entier, var taxe: reel): NULL
+		Pour i allant de 0 à 11 par pas de 1 Faire
+			Pour j alland de 0 à taille-1 par pas de 1 Faire
+				tab[j].payerPollution(tab[j].calculPollution(30,taxe))
+			FinPour
+		FinPour
+	FinFonction
+Debut
+	taille = 0
+	
+	Faire
+		choix = saisieChar()
+		
+		SelonQue choix
+			Cas 'v'
+				modifTab(taille, tab, creerVoiture())
+			FinCas
+			Cas 'e'
+				modifTab(taille, tab, creerEntreprise())
+			FinCas
+			Cas 's'
+				simulation(tab, taille, taxe)
+			FinCas
+		FinSelonQue
+	TantQue (choix != 'q')
+	FinFaire
+Fin
